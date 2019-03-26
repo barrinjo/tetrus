@@ -6,8 +6,9 @@
 #include <gdk/gdkkeysyms.h>
 #include <math.h>
 
-#include "tetri.h"
+#include "grid.h"
 #include "func.h"
+#include "clock.h"
 
 static void do_drawing(cairo_t *);
 
@@ -16,6 +17,7 @@ static gboolean on_draw_event(GtkWidget *widget,
 			      cairo_t   *cr,
 			      gpointer   user_data) {
 	// do_drawing(cr);
+	// clock_tick();
 	draw_grid(cr);
 
 	return FALSE;
@@ -36,11 +38,12 @@ static void do_drawing(cairo_t *cr) {
 	// cairo_stroke(cr);
 }
 
-static gboolean key_press(GtkWidget *widget,
-			  GdkEventKey *event,
-			  gpointer user_data) {
+static void key_press(GtkWidget   *widget,
+		      GdkEventKey *event,
+		      gpointer     user_data) {
 	if(event->keyval == GDK_KEY_space) {
 		printf("space key pressed\n");
+		gtk_widget_queue_draw(widget);
 	}
 	if(event->keyval == GDK_KEY_Left) {
 		printf("left key pressed\n");
@@ -54,8 +57,6 @@ static gboolean key_press(GtkWidget *widget,
 	if(event->keyval == GDK_KEY_Down) {
 		printf("down key pressed\n");
 	}
-
-	return TRUE;
 }
 
 int main(int argc, char const *argv[])
@@ -85,7 +86,7 @@ int main(int argc, char const *argv[])
 	g_signal_connect(window, "key-press-event",
 			 G_CALLBACK(key_press), NULL);
 
-	// gint funkyMonkey = g_timeout_add(1000, on_draw_event, '2');
+	g_timeout_add(1000, clock_tick, darea);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
