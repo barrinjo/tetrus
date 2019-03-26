@@ -15,13 +15,14 @@ static void do_drawing(cairo_t *);
 static gboolean on_draw_event(GtkWidget *widget,
 			      cairo_t   *cr,
 			      gpointer   user_data) {
-	do_drawing(cr);
+	// do_drawing(cr);
+	draw_grid(cr);
 
 	return FALSE;
 }
 
 static void do_drawing(cairo_t *cr) {
-	// sets source to pink
+	// // sets source to pink
 	// cairo_set_source_rgb(cr, rgb(47), rgb(130), rgb(28));
 	// cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
 	// cairo_set_line_width(cr, 5);
@@ -84,7 +85,7 @@ int main(int argc, char const *argv[])
 	g_signal_connect(window, "key-press-event",
 			 G_CALLBACK(key_press), NULL);
 
-	gint funkyMonkey = g_timeout_add(1000, test_function, '2');
+	// gint funkyMonkey = g_timeout_add(1000, on_draw_event, '2');
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
