@@ -2,18 +2,10 @@
 #define GRID_H
 
 #include "func.h"
-
-struct block {
-        int color;
-        gboolean active;
-};
-
-struct block grid[10][20];
+#include "global.h"
 
 static void draw_grid(cairo_t *cr) {
-        grid[5][0].color = 1;
-        grid[5][0].active = TRUE;
-        
+
         cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
         cairo_set_line_width(cr, 0);
 

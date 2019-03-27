@@ -5,10 +5,13 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
 #include <math.h>
+#include<time.h>
 
+#include "pieces.h"
 #include "grid.h"
 #include "func.h"
 #include "clock.h"
+#include "global.h"
 
 static void do_drawing(cairo_t *);
 
@@ -44,23 +47,34 @@ static void key_press(GtkWidget   *widget,
 	if(event->keyval == GDK_KEY_space) {
 		printf("space key pressed\n");
 		gtk_widget_queue_draw(widget);
+		int x = rand()%10;
+		int y = rand()%20;
+	        grid[x][y].color = rand()%6 + 1;
+	        grid[x][y].active = TRUE;
+
 	}
 	if(event->keyval == GDK_KEY_Left) {
 		printf("left key pressed\n");
+		control_block(0);
+		gtk_widget_queue_draw(widget);
+
 	}
 	if(event->keyval == GDK_KEY_Up) {
 		printf("up key pressed\n");
 	}
 	if(event->keyval == GDK_KEY_Right) {
 		printf("right key pressed\n");
+		control_block(1);
+		gtk_widget_queue_draw(widget);
 	}
 	if(event->keyval == GDK_KEY_Down) {
 		printf("down key pressed\n");
 	}
 }
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
+	srand(time(0));
+
 	GtkWidget *window;
 	GtkWidget *darea;
 
@@ -86,7 +100,7 @@ int main(int argc, char const *argv[])
 	g_signal_connect(window, "key-press-event",
 			 G_CALLBACK(key_press), NULL);
 
-	g_timeout_add(1000, clock_tick, darea);
+	g_timeout_add(100, clock_tick, darea);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
