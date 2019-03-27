@@ -44,17 +44,10 @@ static void do_drawing(cairo_t *cr) {
 static void key_press(GtkWidget   *widget,
 		      GdkEventKey *event,
 		      gpointer     user_data) {
-	if(event->keyval == GDK_KEY_space) {
-		printf("space key pressed\n");
-		gtk_widget_queue_draw(widget);
-		int x = rand()%10;
-		int y = rand()%20;
-	        grid[x][y].color = rand()%6 + 1;
-	        grid[x][y].active = TRUE;
-
-	}
+	// if(event->keyval == GDK_KEY_space) {
+		
+	// }
 	if(event->keyval == GDK_KEY_Left) {
-		printf("left key pressed\n");
 		control_block(0);
 		gtk_widget_queue_draw(widget);
 
@@ -63,7 +56,6 @@ static void key_press(GtkWidget   *widget,
 		printf("up key pressed\n");
 	}
 	if(event->keyval == GDK_KEY_Right) {
-		printf("right key pressed\n");
 		control_block(1);
 		gtk_widget_queue_draw(widget);
 	}
@@ -100,7 +92,7 @@ int main(int argc, char const *argv[]) {
 	g_signal_connect(window, "key-press-event",
 			 G_CALLBACK(key_press), NULL);
 
-	g_timeout_add(100, clock_tick, darea);
+	g_timeout_add(500, clock_tick, darea);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);
