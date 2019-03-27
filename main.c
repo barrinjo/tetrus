@@ -9,8 +9,8 @@
 
 #include "pieces.h"
 #include "grid.h"
-#include "func.h"
 #include "clock.h"
+#include "func.h"
 #include "global.h"
 
 static void do_drawing(cairo_t *);
@@ -45,7 +45,7 @@ static void key_press(GtkWidget   *widget,
 		      GdkEventKey *event,
 		      gpointer     user_data) {
 	// if(event->keyval == GDK_KEY_space) {
-		
+
 	// }
 	if(event->keyval == GDK_KEY_Left) {
 		control_block(0);
@@ -53,7 +53,8 @@ static void key_press(GtkWidget   *widget,
 
 	}
 	if(event->keyval == GDK_KEY_Up) {
-		printf("up key pressed\n");
+		hard_drop();
+		gtk_widget_queue_draw(widget);
 	}
 	if(event->keyval == GDK_KEY_Right) {
 		control_block(1);
@@ -92,7 +93,7 @@ int main(int argc, char const *argv[]) {
 	g_signal_connect(window, "key-press-event",
 			 G_CALLBACK(key_press), NULL);
 
-	g_timeout_add(500, clock_tick, darea);
+	g_timeout_add(250, clock_tick, darea);
 
 	gtk_window_set_position(GTK_WINDOW(window), GTK_WIN_POS_CENTER);
 	gtk_window_set_default_size(GTK_WINDOW(window), 500, 500);

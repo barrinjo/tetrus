@@ -7,10 +7,12 @@
 static void draw_grid(cairo_t *cr) {
 
         cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND);
-        cairo_set_line_width(cr, 0);
+        cairo_set_line_width(cr, 2);
 
         for(int x = 0; x < 10; x++) {
                 for(int y = 0; y < 20; y++) {
+                        cairo_set_source_rgb(cr, 0, 0, 0);
+                        cairo_rectangle(cr, x*20 + 50, y*20 + 20, 20, 20);
                         switch(grid[x][y].color) {
                                 case 0 :
                                         // empty
@@ -45,8 +47,6 @@ static void draw_grid(cairo_t *cr) {
                                         cairo_set_source_rgb(cr, rgb(226), rgb(13), rgb(191));
                         }
 
-
-                        cairo_rectangle(cr, x*20 + 50, y*20 + 20, 20, 20);
                         cairo_stroke_preserve(cr);
                         cairo_fill(cr);
                 }

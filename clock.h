@@ -48,6 +48,12 @@ static void lower_active_blocks(void) {
         }
 }
 
+static void hard_drop(void) {
+        while(!no_active_blocks()) {
+                lower_active_blocks();
+        }
+}
+
 static gboolean no_active_blocks(void) {
         int active_flag = FALSE;
         for(int y = 0; y < 20; y++) {
